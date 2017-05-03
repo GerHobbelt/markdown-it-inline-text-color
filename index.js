@@ -2,8 +2,8 @@
 
 'use strict';
 
-var COLOR_OPEN_REGEX = /{\s*color\s*:\s*(\w+\s*)}/;
-var COLOR_CLOSE_REGEX = /{\s*color\s*}/;
+var COLOR_OPEN_REGEX = /{color:(#?\w+)}/;
+var COLOR_CLOSE_REGEX = /{color}/;
 var TOKEN_TYPE = 'color_text';
 var MARKUP = "{color}";
 
@@ -40,7 +40,6 @@ function color(state, silent) {
   content = state.src.slice(start);
   startResult = COLOR_OPEN_REGEX.exec(content);
   endResult = COLOR_CLOSE_REGEX.exec(content);
-
   if(!startResult && !endResult) { return false; }
 
   if(startResult && endResult) {
