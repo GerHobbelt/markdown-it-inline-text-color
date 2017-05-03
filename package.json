@@ -1,6 +1,6 @@
 {
   "name": "markdown-it-inline-text-color",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Provides inline <span style=\"color:<value>;\">CONTAINTED TEXT</span> for markdown-it",
   "main": "index.js",
   "scripts": {
