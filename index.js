@@ -1,7 +1,7 @@
 // Process ~subscript~
 
-let COLOR_OPEN_REGEX = /{\s*color\s*:\s*(\w+\s*)}/;
-let COLOR_CLOSE_REGEX = /{\s*color\s*}/;
+let COLOR_OPEN_REGEX = /{color:(#?\w+)}/;
+let COLOR_CLOSE_REGEX = /{color}/;
 let TOKEN_TYPE = 'color_text';
 let MARKUP = '{color}';
 
@@ -38,7 +38,6 @@ function color(state, silent) {
   content = state.src.slice(start);
   startResult = COLOR_OPEN_REGEX.exec(content);
   endResult = COLOR_CLOSE_REGEX.exec(content);
-
   if (!startResult && !endResult) { return false; }
 
   if (startResult && endResult) {

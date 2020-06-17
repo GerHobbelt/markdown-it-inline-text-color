@@ -1,6 +1,6 @@
 {
   "name": "@gerhobbelt/markdown-it-inline-text-color",
-  "version": "1.0.0-1",
+  "version": "1.0.1-1",
   "description": "Provides inline <span style=\"color:<value>;\">CONTAINTED TEXT</span> for markdown-it",
   "keywords": [
     "markdown-it-plugin",
