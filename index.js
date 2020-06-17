@@ -1,19 +1,17 @@
 // Process ~subscript~
 
-'use strict';
-
-var COLOR_OPEN_REGEX = /{\s*color\s*:\s*(\w+\s*)}/;
-var COLOR_CLOSE_REGEX = /{\s*color\s*}/;
-var TOKEN_TYPE = 'color_text';
-var MARKUP = "{color}";
+let COLOR_OPEN_REGEX = /{\s*color\s*:\s*(\w+\s*)}/;
+let COLOR_CLOSE_REGEX = /{\s*color\s*}/;
+let TOKEN_TYPE = 'color_text';
+let MARKUP = '{color}';
 
 function getColor(attrs) {
-  if(!attrs || attrs.length < 1) { return null; }
+  if (!attrs || attrs.length < 1) { return null; }
 
-  for(var ii=0; ii< attrs.length; ii++) {
-    var att = attrs[ii];
-    if(att && att.length > 1) {
-      if(att[0] === 'color') {
+  for (let ii = 0; ii < attrs.length; ii++) {
+    let att = attrs[ii];
+    if (att && att.length > 1) {
+      if (att[0] === 'color') {
         return att[1];
       }
     }
@@ -23,7 +21,7 @@ function getColor(attrs) {
 }
 
 function color(state, silent) {
-  var found,
+  let found,
       content,
       token,
       startResult,
@@ -41,16 +39,16 @@ function color(state, silent) {
   startResult = COLOR_OPEN_REGEX.exec(content);
   endResult = COLOR_CLOSE_REGEX.exec(content);
 
-  if(!startResult && !endResult) { return false; }
+  if (!startResult && !endResult) { return false; }
 
-  if(startResult && endResult) {
-    if(startResult.index < endResult.index) {
+  if (startResult && endResult) {
+    if (startResult.index < endResult.index) {
       result = startResult;
     } else {
       nesting = -1;
       result = endResult;
     }
-  } else if(startResult) {
+  } else if (startResult) {
     result = startResult;
   } else {
     result = endResult;
@@ -63,8 +61,8 @@ function color(state, silent) {
   token         = state.push(TOKEN_TYPE, 'span', nesting);
   token.markup  = MARKUP;
 
-  if(isOpen) {
-    token.attrPush(['color', result[1]]);
+  if (isOpen) {
+    token.attrPush([ 'color', result[1] ]);
   }
 
   state.pos = state.posMax;
@@ -73,26 +71,26 @@ function color(state, silent) {
 }
 
 function renderDefault(tokens, idx, _options, env, self) {
-    var token = tokens[idx];
+  let token = tokens[idx];
 
-    var result = ['<'];
+  let result = [ '<' ];
 
-    if(token.nesting === -1) {
-        result.push('/');
+  if (token.nesting === -1) {
+    result.push('/');
+  }
+
+  result.push('span');
+
+  if (token.nesting === 1) {
+    let color = getColor(token.attrs);
+
+    if (color) {
+      result.push(' style="color:', color, ';"');
     }
+  }
+  result.push('>');
 
-    result.push('span');
-
-    if(token.nesting === 1) {
-      var color = getColor(token.attrs);
-
-      if(color) {
-        result.push(' style="color:',color,';"');
-      }
-    }
-    result.push('>');
-
-    return result.join('');
+  return result.join('');
 }
 
 module.exports = function sub_plugin(md, name, options) {
