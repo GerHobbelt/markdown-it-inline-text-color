@@ -1,4 +1,4 @@
-/*! markdown-it-inline-text-color 1.0.1-1 https://github.com//GerHobbelt/markdown-it-inline-text-color @license MIT */
+/*! markdown-it-inline-text-color 1.0.1-2 https://github.com//GerHobbelt/markdown-it-inline-text-color @license MIT */
 
 'use strict';
 
